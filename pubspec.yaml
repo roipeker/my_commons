@@ -1,7 +1,7 @@
 #former name: observe
 name: my_commons
 description: Skeleton code, common to most apps. A conjunction of extensions and widgets.
-version: 0.0.2
+version: 0.0.3
 homepage: roipeker.com
 
 environment:
