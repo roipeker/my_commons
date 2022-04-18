@@ -17,52 +17,46 @@ extension WidgetExt on Widget {
         opacity: opacity,
       );
 
-  Widget ignorePointer(bool ignoring) {
-    return IgnorePointer(
-      child: this,
-      ignoring: ignoring,
-    );
-  }
+  Widget ignorePointer(bool ignoring) => IgnorePointer(
+        child: this,
+        ignoring: ignoring,
+      );
 }
 
 /// Extension for Padding.
 extension WidgetPaddingExt on Widget {
   Widget paddingOnly({
-    double left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  }) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: left,
-        top: top,
-        right: right,
-        bottom: bottom,
-      ),
-      child: this,
-    );
-  }
+    double left = 0.0,
+    double right = 0.0,
+    double top = 0.0,
+    double bottom = 0.0,
+  }) =>
+      Padding(
+        padding: EdgeInsets.only(
+          left: left,
+          top: top,
+          right: right,
+          bottom: bottom,
+        ),
+        child: this,
+      );
 
-  Widget padding(double all) {
-    return Padding(
-      padding: EdgeInsets.all(all),
-      child: this,
-    );
-  }
+  Widget padding(double all) => Padding(
+        padding: EdgeInsets.all(all),
+        child: this,
+      );
 
   Widget paddingSymmetric({
-    double horizontal = 0,
-    double vertical = 0,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: vertical,
-        horizontal: horizontal,
-      ),
-      child: this,
-    );
-  }
+    double horizontal = 0.0,
+    double vertical = 0.0,
+  }) =>
+      Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: vertical,
+          horizontal: horizontal,
+        ),
+        child: this,
+      );
 }
 
 /// List extensions meant to be consumed by Widgets.
