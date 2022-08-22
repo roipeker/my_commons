@@ -141,10 +141,13 @@ class ObsValueNull<T> extends ObsValue<T?> {
 
 class ObsValue<T> extends ValueNotifier<T> {
   final ObsMixin? _creator;
+  bool _debugDisposed = false;
 
   ObsValue(T value, [this._creator]) : super(value) {
     _creator?._observables.add(this);
   }
+
+  bool get disposed => _debugDisposed;
 
   @override
   void dispose() {
@@ -159,11 +162,12 @@ class ObsValue<T> extends ValueNotifier<T> {
     }
     _subscriptions.clear();
 
-
     final callbacks = _buildContextSubscriptions.values;
     for (var callback in callbacks) {
       removeListener(callback);
     }
+    /// Will only allow to dispose once.
+    _debugDisposed = true;
     super.dispose();
   }
 
@@ -245,7 +249,7 @@ class ObsValue<T> extends ValueNotifier<T> {
   void bindStream(Stream<T> stream) {
     late StreamSubscription subscription;
     subscription = stream.asBroadcastStream().listen(
-          (event) => value = event,
+      (event) => value = event,
       onDone: () {
         _subscriptions.remove(subscription);
         subscription.cancel();
@@ -292,7 +296,6 @@ class ObsValue<T> extends ValueNotifier<T> {
     addListener(_listener);
     return value;
   }
-
 }
 
 /// This class is the hook between [ObsValue] (ValueNotifier) and the widget.

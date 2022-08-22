@@ -126,9 +126,15 @@ class ObsState<T> {
     bool throwError = false,
     Function? onData,
   }) {
+    if(_state.disposed){
+      return null;
+    }
     setLoading();
     final f = callback();
     return f.then((value) {
+      if(_state.disposed){
+        return null;
+      }
       // TODO: should we assume empty state as idle?
       if (value == null) {
         setEmpty();
@@ -138,6 +144,9 @@ class ObsState<T> {
       onData?.call(value);
       return value;
     }, onError: (err) {
+      if(_state.disposed){
+        return null;
+      }
       String msg = '';
       if (onError != null) {
         if (onError is Function) {
